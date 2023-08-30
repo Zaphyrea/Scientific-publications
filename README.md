@@ -8,7 +8,22 @@ The application is deployable from a docker-compose.
 
 
 ## Make it work
-First you have to unzip the file. Then you can deploy the Docker container using this command :
+
+There are two possibilities to make it functionnal.
+
+### First choice
+
+Using the mongauteurs.zip
+You have to unzip the file.
+
+### Second choice
+
+Using mongauteurs folder
+You just have to unzip the dblp.zip
+
+## Launch it
+
+ Then you can deploy the Docker container using this command :
 
     docker-compose up --build -d
 Take care to be in 'mongauteurs' folder in your terminal when you enter the command
