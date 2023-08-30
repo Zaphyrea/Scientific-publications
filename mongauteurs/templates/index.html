@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>Trouve ton film</title>
+</head>
+<!-- J'ai modifié à partir de là -->
+<body>
+  <div class="background-container">
+      <div class="search-container">
+          <form action="/" method="POST">
+            <input class="search-input" type="text" name="search_term" placeholder="Search">
+              <select class="search-dropdown" name="search_option">
+                  <option value="title">By title</option>
+                  <option value="author">By author</option>
+                  <option value="year">By year</option>
+                  <!-- Add other options if needed -->
+              </select>
+              <button type="submit" class="search-button">Search</button>
+          </form>
+      </div>  
+      <div class="publication-count">
+        <p>Total Publications: {{ publication_count }}</p>
+    </div>
+      <div class="books-container">
+          {% for publication in publications %}
+          <div class="book-box">
+              <img class="imageBox" src="{{ url_for('static', filename='image/fakeImageDePresentation.png') }}" alt="Book">
+              <div class="book-description">
+                  <h2>{{ publication.title }}</h2>
+                  <p>Auteurs: {{ publication.authors|join(', ') }}</p>
+                  <p>Année: {{ publication.year }}</p>
+                  <p>Editeur: {{ publication.publisher }}</p>
+                  <p>Catégorie: {{ publication.type }}</p>
+                  <p>Pages: start: {{ publication.pages_start }}, end: {{ publication.pages_end }} </p>
+                  <p>Series: {{ publication.series }}</p>
+                  <p>isbn: {{ publication.isbn|join(', ') }}</p>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      <div class="arrow-container arrow-container-droit">
+
+        <button class="arrow" onclick="window.location.href = 'http://127.0.0.1:5000/insertion';">&gt;</button>
+  
+      </div>
+<!-- Jusqu'à ici -->
+
+
+
+
+    <script>
+      const searchInput = document.getElementById("searchInput");
+      const searchOption = document.getElementById("searchOption");
+  
+      searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          performSearch();
+        }
+      });
+  
+      searchOption.addEventListener("change", updatePlaceholder);
+  
+      function updatePlaceholder() {
+        const selectedOption = searchOption.value;
+        let placeholderText = "";
+  
+        switch (selectedOption) {
+            case "title":
+                placeholderText = "Rechercher par titre...";
+                break;
+            case "auteur":
+                placeholderText = "Rechercher par auteur...";
+                break;
+            case "date":
+                placeholderText = "Rechercher par date...";
+                break;
+            case "all":
+                placeholderText = "Rechercher...";
+                break;
+            case "before":
+                placeholderText = "Rechercher avant une date...";
+                break;
+            case "after":
+                placeholderText = "Rechercher après une date...";
+                break;
+            default:
+                break;
+        }
+  
+        searchInput.placeholder = placeholderText;
+      }
+  
+      function performSearch() {
+        const query = searchInput.value;
+        const option = searchOption.value;
+        // Ici, tu peux ajouter la logique de recherche en fonction de l'option choisie
+        console.log(`Recherche: ${query}, Option: ${option}`);
+      }
+    </script>
+    </div>
+</body>
+</html>

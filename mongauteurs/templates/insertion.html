@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>insertion</title>
+</head>
+
+<body>
+    <div class="containerbiss">
+        <form class="questionnaire-form" method="POST" action="/insertion">
+            <h2>Enregistrez votre publication</h2>
+            <label for="titre">Titre:</label>
+            <input type="text" id="titre" name="title" required>   
+            <label for="auteurs">Auteurs:</label>
+            <input type="text" id="auteurs" name="authors" required>
+            <label for="annee">Année:</label>
+            <input type="text" id="annee" name="year" required>
+            <label for="editeur">Editeur:</label>
+            <input type="text" id="editeur" name="publisher" >        
+            <label for="pages">Pages:</label>
+            <input type="text" id="pages" name="pages" >          
+            <label for="series">Séries:</label>
+            <input type="text" id="series" name="series">
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn">
+            <button class="arrowbiss">Soumettre</button>
+        </form>
+        <button class="arrowbiss" id="moveButton" onclick="window.location.href = 'http://127.0.0.1:5000/';">&lt;</button>
+    </div>
+</body>
+</html>
+

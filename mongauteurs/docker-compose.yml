@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongo-db
+
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE : DBLP
+    volumes:
+      - mongodb-data:/data/db
+      - ./data/dblp.json:/data/db/dblp.json
+    networks:
+      - mongodb_network
+    ports:
+      - 27018:27017 
+
+
+  flask-app:
+    build:
+      context: .
+    restart: always
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME : root
+      MONGO_INITDB_ROOT_PASSWORD : example
+      FLASK_DEBUG : 1  # enable debug mode
+      FLASK_APP : ./app.py
+    ports:
+      - 5001:5000    
+    depends_on:
+      - mongo
+    networks:
+      - mongodb_network
+
+
+networks:
+  mongodb_network:
+    name: mongodb_network
+
+volumes:
+  mongodb-data:
+    name : mongodb-data
